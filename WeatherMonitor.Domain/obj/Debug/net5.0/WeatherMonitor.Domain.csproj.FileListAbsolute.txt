@@ -1,0 +1,12 @@
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/bin/Debug/net5.0/WeatherMonitor.Domain.deps.json
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/bin/Debug/net5.0/WeatherMonitor.Domain.dll
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/bin/Debug/net5.0/ref/WeatherMonitor.Domain.dll
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/bin/Debug/net5.0/WeatherMonitor.Domain.pdb
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.csproj.AssemblyReference.cache
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.AssemblyInfoInputs.cache
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.AssemblyInfo.cs
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.csproj.CoreCompileInputs.cache
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.dll
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/ref/WeatherMonitor.Domain.dll
+/home/konstantin/src/WeatherMonitor/WeatherMonitor.Domain/obj/Debug/net5.0/WeatherMonitor.Domain.pdb

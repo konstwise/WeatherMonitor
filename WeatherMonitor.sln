@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Host", "WeatherMonitor.Host\WeatherMonitor.Host.csproj", "{D0DC2E35-8DFF-4409-9BAD-7889527F918A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Domain", "WeatherMonitor.Domain\WeatherMonitor.Domain.csproj", "{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.IoC", "WeatherMonitor.IoC\WeatherMonitor.IoC.csproj", "{A4A54527-E576-4935-8EAF-AFB46B7F4861}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.OpenWeatherMapProvider", "WeatherMonitor.OpenWeatherMapProvider\WeatherMonitor.OpenWeatherMapProvider.csproj", "{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0DC2E35-8DFF-4409-9BAD-7889527F918A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DC2E35-8DFF-4409-9BAD-7889527F918A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DC2E35-8DFF-4409-9BAD-7889527F918A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DC2E35-8DFF-4409-9BAD-7889527F918A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4A54527-E576-4935-8EAF-AFB46B7F4861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4A54527-E576-4935-8EAF-AFB46B7F4861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4A54527-E576-4935-8EAF-AFB46B7F4861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4A54527-E576-4935-8EAF-AFB46B7F4861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
