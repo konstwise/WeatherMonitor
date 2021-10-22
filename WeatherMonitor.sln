@@ -14,6 +14,12 @@ ProjectSection(SolutionItems) = preProject
 	README.md = README.md
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.InMemoryForecastRepository", "WeatherMonitor.InMemoryForecastRepository\WeatherMonitor.InMemoryForecastRepository.csproj", "{687E18CD-CB5E-4BA2-B690-616D425DB04E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.ForecastUpdater", "WeatherMonitor.ForecastUpdater\WeatherMonitor.ForecastUpdater.csproj", "{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Services", "WeatherMonitor.Services\WeatherMonitor.Services.csproj", "{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +42,17 @@ Global
 		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{687E18CD-CB5E-4BA2-B690-616D425DB04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{687E18CD-CB5E-4BA2-B690-616D425DB04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{687E18CD-CB5E-4BA2-B690-616D425DB04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{687E18CD-CB5E-4BA2-B690-616D425DB04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

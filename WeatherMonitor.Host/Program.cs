@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WeatherMonitor.Host.Services;
+using WeatherMonitor.IoC;
 
 namespace WeatherMonitor.Host
 {
@@ -17,7 +16,7 @@ namespace WeatherMonitor.Host
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .ConfigureServices(services =>
                 {
-                    services.AddHostedService<ForecastUpdater>();
+                    services.AddForecastUpdater();
                 });
     }
 }

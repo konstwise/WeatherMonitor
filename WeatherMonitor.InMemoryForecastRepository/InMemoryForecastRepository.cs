@@ -1,10 +1,11 @@
 using System.Collections.Concurrent;
 using System.Linq;
+using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
 
-namespace WeatherMonitor.Domain
+namespace WeatherMonitor.InMemoryForecastRepository
 {
-    public class ForecastRepository : IForecastRepository
+    public class InMemoryForecastRepository : IForecastRepository
     {
         private readonly ConcurrentDictionary<Location, DailyTemperatureForecast[]> _internalStore =
             new();
