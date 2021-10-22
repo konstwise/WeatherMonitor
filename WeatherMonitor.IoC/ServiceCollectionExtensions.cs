@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using WeatherMonitor.Domain;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,21 +16,22 @@ namespace WeatherMonitor.IoC
             IConfiguration configuration)
         {
             services.AddSingleton<IForecastRepository, InMemoryForecastRepository.InMemoryForecastRepository>();
-            services.AddSingleton<IForecastUpdater, ForecastUpdater.ForecastUpdater>();
+            services.AddSingleton<IExecutor, ForecastUpdater.ForecastUpdater>();
             
-            services.Configure<MonitoringConfig>(configuration.GetSection(
-                nameof(MonitoringConfig)));
-           services.AddOpenWeatherMapProvider(configuration);
+            MonitoringConfig config = new();
+            configuration.GetSection(
+                    nameof(MonitoringConfig))
+                .Bind(config);
 
-           return services;
-        }        
-        public static IServiceCollection AddForecastUpdater(this IServiceCollection services)
+            services.AddSingleton<MonitoringConfig>(config);
+            services.AddOpenWeatherMapProvider(configuration);
+
+            return services;
+        }
+
+        public static IServiceCollection AddRecurringTaskExecutor(this IServiceCollection services)
         {
-           services.AddHostedService(sp => new LongRunningTaskExecutor(
-               (ct)=> 
-                        sp.GetRequiredService<IForecastUpdater>().UpdatePeriodicallyAsync(ct),
-                    sp.GetRequiredService<ILogger<LongRunningTaskExecutor>>()
-               ));
+            services.AddHostedService<RecurringTaskExecutor>();
 
            return services;
         }

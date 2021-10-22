@@ -11,11 +11,16 @@ namespace WeatherMonitor.OpenWeatherMapProvider
             IConfiguration configuration)
         {
             services.AddSingleton<IForecastProvider, OpenWeatherMapForecastProvider>();
-            services.Configure<OpenWeatherMapApiConfig>(configuration.GetSection(
-                nameof(OpenWeatherMapApiConfig)));
+            OpenWeatherMapApiConfig config = new();
+            configuration.GetSection(
+                    nameof(OpenWeatherMapApiConfig))
+                .Bind(config);
+
+            services.AddSingleton<OpenWeatherMapApiConfig>(config);
+
             services.AddHttpClient<IForecastProvider, OpenWeatherMapForecastProvider>(c =>
             {
-                c.BaseAddress = new Uri("https://api.openweathermap.org/data/2.5/");
+                c.BaseAddress = new Uri(config.BaseUrl);
             });            
             return services;
         }

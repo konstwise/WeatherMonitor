@@ -5,6 +5,6 @@ namespace WeatherMonitor.Domain
 {
     public interface IForecastUpdater
     {
-        Task UpdatePeriodicallyAsync(CancellationToken cancellationToken);
+        Task UpdateAllLocationsAsync(CancellationToken cancellationToken);
     }
 }

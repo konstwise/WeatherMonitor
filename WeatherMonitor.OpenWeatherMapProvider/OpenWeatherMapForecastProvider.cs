@@ -1,7 +1,6 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
 using WeatherMonitor.OpenWeatherMapProvider.DTO;
@@ -13,10 +12,10 @@ namespace WeatherMonitor.OpenWeatherMapProvider
         private readonly HttpClient _httpClient;
         private readonly OpenWeatherMapApiConfig _apiConfig;
 
-        public OpenWeatherMapForecastProvider(HttpClient httpClient, IOptions<OpenWeatherMapApiConfig> apiConfigOptions)
+        public OpenWeatherMapForecastProvider(HttpClient httpClient, OpenWeatherMapApiConfig apiConfig)
         {
             _httpClient = httpClient;
-            _apiConfig = apiConfigOptions.Value;
+            _apiConfig = apiConfig;
         }
 
         public async Task<DailyTemperatureForecast[]> GetLocationForecastAsync(LocationConfig location)
@@ -26,7 +25,7 @@ namespace WeatherMonitor.OpenWeatherMapProvider
             var res = await _httpClient.GetAsync($"forecast?q={place}&appid={_apiConfig.AppId}&units=metric");
 
             res.EnsureSuccessStatusCode();
-            var dto = await res.Content.ReadFromJsonAsync<LocationForecastResponse>();
+            var dto = (await res.Content.ReadFromJsonAsync<LocationForecastResponse>())!;
             return dto.MapToDailyForecast(minCelsium: location.Limits.LowerCelsium, maxCelsium: location.Limits.UpperCelsium);
         }
     }

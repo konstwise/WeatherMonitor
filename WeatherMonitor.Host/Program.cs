@@ -16,7 +16,7 @@ namespace WeatherMonitor.Host
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .ConfigureServices(services =>
                 {
-                    services.AddForecastUpdater();
+                    services.AddRecurringTaskExecutor();
                 });
     }
 }

@@ -1,13 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
 
 namespace WeatherMonitor.ForecastUpdater
 {
-    public class ForecastUpdater : IForecastUpdater
+    public class ForecastUpdater : IForecastUpdater, IExecutor
     {
         private readonly IForecastProvider _forecastProvider;
         private readonly ILogger<ForecastUpdater> _logger;
@@ -15,34 +14,29 @@ namespace WeatherMonitor.ForecastUpdater
         private readonly IForecastRepository _forecastRepository;
 
         public ForecastUpdater(IForecastProvider forecastProvider, ILogger<ForecastUpdater> logger, 
-            IOptions<MonitoringConfig> configOptions,
+            MonitoringConfig config,
             IForecastRepository forecastRepository)
         {
             _forecastProvider = forecastProvider;
             _logger = logger;
-            _config = configOptions.Value;
+            _config = config;
             _forecastRepository = forecastRepository;
         }
 
-        public async Task UpdatePeriodicallyAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogDebug(
-                $"Updating interval: {_config.UpdateInterval}");
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                await UpdateAllLocationsAsync();
-
-                await Task.Delay(_config.UpdateInterval, cancellationToken);
-            }
-        }
-
-        private async Task UpdateAllLocationsAsync()
+        public async Task UpdateAllLocationsAsync(CancellationToken token)
         {
             _logger.LogDebug(
                 "Retrieving weather forecast for all configured locations..");
 
             foreach (var locationConfig in _config.Locations)
             {
+                if (token.IsCancellationRequested)
+                {
+                    _logger.LogInformation(
+                        "Forecast update cancelled");
+                    return;
+                }
+                
                 var forecast = await _forecastProvider.GetLocationForecastAsync(locationConfig);
                 var location = new Location
                 {
@@ -56,6 +50,11 @@ namespace WeatherMonitor.ForecastUpdater
 
             _logger.LogInformation(
                 "Forecast updated for {LocationsCount} locations.", _config.Locations.Length);
+        }
+
+        public async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await UpdateAllLocationsAsync(stoppingToken);
         }
     }
 }
