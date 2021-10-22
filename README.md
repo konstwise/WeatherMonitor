@@ -1,4 +1,5 @@
 Build docker image on Linux from WeatherMonitor directory:
+####
     sudo docker build . -t cloudatortask/weather-monitor
 
 Run:
