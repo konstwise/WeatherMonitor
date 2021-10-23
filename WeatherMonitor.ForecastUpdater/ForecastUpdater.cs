@@ -56,5 +56,6 @@ namespace WeatherMonitor.ForecastUpdater
         {
             await UpdateAllLocationsAsync(stoppingToken);
         }
+        
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using WeatherMonitor.Domain;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using WeatherMonitor.OpenWeatherMapProvider;
 using WeatherMonitor.Services;
 
@@ -17,15 +13,14 @@ namespace WeatherMonitor.IoC
         {
             services.AddSingleton<IForecastRepository, InMemoryForecastRepository.InMemoryForecastRepository>();
             services.AddSingleton<IExecutor, ForecastUpdater.ForecastUpdater>();
-            
+
             MonitoringConfig config = new();
             configuration.GetSection(
                     nameof(MonitoringConfig))
                 .Bind(config);
 
-            services.AddSingleton<MonitoringConfig>(config);
+            services.AddSingleton(config);
             services.AddOpenWeatherMapProvider(configuration);
-
             return services;
         }
 
@@ -33,7 +28,7 @@ namespace WeatherMonitor.IoC
         {
             services.AddHostedService<RecurringTaskExecutor>();
 
-           return services;
+            return services;
         }
     }
 }

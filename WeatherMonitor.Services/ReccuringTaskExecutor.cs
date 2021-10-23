@@ -13,12 +13,14 @@ namespace WeatherMonitor.Services
         private readonly MonitoringConfig _config;
 
         private readonly ILogger<RecurringTaskExecutor> _logger;
+        private readonly IHostApplicationLifetime _applicationLifetime;
 
-        public RecurringTaskExecutor(IExecutor task, MonitoringConfig config, ILogger<RecurringTaskExecutor> logger)
+        public RecurringTaskExecutor(IExecutor task, MonitoringConfig config, ILogger<RecurringTaskExecutor> logger, IHostApplicationLifetime applicationLifetime)
         {
             _task = task ?? throw new ArgumentNullException(nameof(task));
             _config = config ?? throw new ArgumentNullException(nameof(config));
             _logger = logger;
+            _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -27,8 +29,16 @@ namespace WeatherMonitor.Services
                 $"Start executing with interval: {_config.UpdateInterval}");
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _task.ExecuteAsync(stoppingToken);
-                await Task.Delay(_config.UpdateInterval, stoppingToken);
+                try
+                {
+                    await _task.ExecuteAsync(stoppingToken);
+                    await Task.Delay(_config.UpdateInterval, stoppingToken);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogCritical(e, "Unrecoverable error occurred. Stopping.");
+                    _applicationLifetime.StopApplication();
+                }
             }            
             _logger.LogDebug("Done.");
         }
