@@ -17,12 +17,13 @@ namespace WeatherMonitor.OpenWeatherMapProvider
                 .Bind(config);
 
             services.AddSingleton(config);
-
+            services.AddSingleton<IRetryHttpRequestSender, RetryHttpRequestSender>();
             services.AddHttpClient<IForecastProvider, OpenWeatherMapForecastProvider>(c =>
             {
                 c.BaseAddress = new Uri(config.BaseUrl);
             });
-                //.AddPolicyHandler(GetRetryBackoffPolicy(services, config.RetryPolicy));          
+            
+            
             return services;
         }
 
