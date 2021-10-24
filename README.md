@@ -82,7 +82,7 @@ _Please make them executable by running <chmod u+x [script].sh>_
 ####
     ./build.sh
 
-**Test** by running:
+**[Test](test.sh)** by running:
 ####
     ./test.sh
 
