@@ -10,21 +10,22 @@ The single endpoint can be requested as follows:
 
 The response contains a collection of data with the following shape:
 
-````json
-[LocationForecastCheckResults{
-location	Location{
-name	string
-nullable: true
-countryOrState	string
-nullable: true
-}
-dailyForecast	[
-nullable: true
-DailyForecastCheckResult{
-date	string($date-time)
-isUpperLimitExceeded	boolean
-isLowerLimitExceeded	boolean
-}]
+````schema
+[
+LocationForecastCheckResults{
+    location	Location{
+        name	string
+        nullable: true
+        countryOrState	string
+        nullable: true
+        }
+    dailyForecast	[
+        nullable: true
+            DailyForecastCheckResult{
+            date	string($date-time)
+            isUpperLimitExceeded	boolean
+            isLowerLimitExceeded	boolean
+    }]
 }]
 ````
 For example:
@@ -76,6 +77,7 @@ For example:
 There are a few bash scripts (checked in Ubuntu but should be compatible with Mac OSX) for that purpose.
 
 _Please make them executable by running <chmod u+x [script].sh>_ 
+
 **[Build](build.sh)** docker image on Linux from WeatherMonitor directory:
 ####
     ./build.sh
@@ -84,7 +86,7 @@ _Please make them executable by running <chmod u+x [script].sh>_
 ####
     ./test.sh
 
-**Run** as docker container:
+**[Run](run.sh)** as docker container:
 - in production mode:
 ####
     ./run.sh
@@ -92,7 +94,7 @@ _Please make them executable by running <chmod u+x [script].sh>_
 ####
     see comments in run.sh
 
-**Explore** in browser Swagger UI or/and sending requests to API:
+**[Explore](open-swagger.sh)** in browser Swagger UI or/and sending requests to API:
 - open Swagger UI:
 ####
     ./open-swagger.sh
