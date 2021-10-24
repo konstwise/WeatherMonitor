@@ -1,4 +1,4 @@
-namespace WeatherMonitor.ForecastUpdater.Tests
+namespace WeatherMonitor.Domain
 {
     public class RetryPolicyConfig
     {

@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using WeatherMonitor.IoC;
+using WeatherMonitor.DI;
 
 namespace WeatherMonitor.Host
 {
@@ -41,7 +41,7 @@ namespace WeatherMonitor.Host
                 })
                 .ConfigureServices(services =>
                 {
-                    services.AddRecurringTaskExecutor();
+                    services.AddLongRunningTaskExecutor();
                 });
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
-using WeatherMonitor.ForecastUpdater.Tests;
 
 namespace WeatherMonitor.Host.Controllers
 {
@@ -11,19 +10,19 @@ namespace WeatherMonitor.Host.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly IForecastRepository _forecastRepository;
+        private readonly IForecastCheckResultsRepository _forecastCheckResultsRepository;
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(IForecastRepository forecastRepository, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IForecastCheckResultsRepository forecastCheckResultsRepository, ILogger<WeatherForecastController> logger)
         {
-            _forecastRepository = forecastRepository;
+            _forecastCheckResultsRepository = forecastCheckResultsRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<LocationForecast> Get()
+        public IEnumerable<LocationForecastCheckResults> Get()
         {
-            return _forecastRepository.GetAllLocationForecasts();
+            return _forecastCheckResultsRepository.GetAllLocationCheckResults();
         }
     }
 }

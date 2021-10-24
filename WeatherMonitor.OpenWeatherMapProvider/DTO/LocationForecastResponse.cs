@@ -12,11 +12,11 @@ namespace WeatherMonitor.OpenWeatherMapProvider.DTO
         public int cnt { get; set; }
         public List<TimePoint> list { get; set; }
 
-        public DailyTemperatureForecast[] MapToDailyForecast(decimal minCelsium, decimal maxCelsium)
+        public DailyForecastCheckResult[] MapToDailyForecast(decimal minCelsium, decimal maxCelsium)
         {
             return list.GroupBy(tp => DateTimeOffset.FromUnixTimeSeconds(tp.dt).Date)
                 .Select(dailyPoints =>
-                new DailyTemperatureForecast
+                new DailyForecastCheckResult
                 {
                     Date = dailyPoints.Key,
                     IsUpperLimitExceeded = dailyPoints.Max(p => p.main.temp_max) > (double) maxCelsium,

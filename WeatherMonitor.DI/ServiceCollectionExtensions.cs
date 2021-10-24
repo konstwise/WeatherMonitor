@@ -1,19 +1,22 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WeatherMonitor.Core;
 using WeatherMonitor.Domain;
-using WeatherMonitor.ForecastUpdater.Tests;
 using WeatherMonitor.OpenWeatherMapProvider;
-using WeatherMonitor.Services;
+using WeatherMonitor.Infrastructure;
+using WeatherMonitor.KeyValueStore;
 
-namespace WeatherMonitor.IoC
+namespace WeatherMonitor.DI
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddWeatherMonitor(this IServiceCollection services,
+        public static IServiceCollection AddWeatherMonitorCore(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddSingleton<IForecastRepository, InMemoryForecastRepository.InMemoryForecastRepository>();
-            services.AddSingleton<IExecutor, Core.ForecastUpdater>();
+            services.AddSingleton<IForecastCheckResultsRepository, ForecastCheckResultsRepository>();
+            services.AddSingleton(typeof(IKeyValueStore<,>), typeof(InMemoryKeyValueStore<,>));
+            services.AddSingleton<IForecastCheckResultsUpdater, ForecastCheckResultsUpdater>();
+            services.AddSingleton<ILongRunningTaskSource, ForecastCheckMonitor>();
 
             MonitoringConfig config = new();
             configuration.GetSection(
@@ -34,9 +37,9 @@ namespace WeatherMonitor.IoC
             return services;
         }
 
-        public static IServiceCollection AddRecurringTaskExecutor(this IServiceCollection services)
+        public static IServiceCollection AddLongRunningTaskExecutor(this IServiceCollection services)
         {
-            return services.AddHostedService<RecurringTaskExecutor>();
+            return services.AddHostedService<BackgroundWorker>();
         }
     }
 }

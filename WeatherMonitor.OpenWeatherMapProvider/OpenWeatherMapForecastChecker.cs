@@ -4,28 +4,31 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
-using WeatherMonitor.ForecastUpdater.Tests;
 using WeatherMonitor.OpenWeatherMapProvider.DTO;
-using WeatherMonitor.Services;
+using WeatherMonitor.Infrastructure;
 
 namespace WeatherMonitor.OpenWeatherMapProvider
 {
-    public class OpenWeatherMapForecastProvider: IForecastProvider
+    /// <summary>
+    /// Implements <c>IForecastChecker</c> for Open Weather public API https://openweathermap.org/api
+    /// </summary>
+    public class OpenWeatherMapForecastChecker: IForecastChecker
     {
         private readonly HttpClient _httpClient;
         private readonly OpenWeatherMapApiConfig _apiConfig;
-        private readonly ILogger<OpenWeatherMapForecastProvider> _logger;
+        private readonly ILogger<OpenWeatherMapForecastChecker> _logger;
         private readonly IRetryHttpRequestHandler _retryHttpRequestSender;
 
-        public OpenWeatherMapForecastProvider(HttpClient httpClient, OpenWeatherMapApiConfig apiConfig, ILogger<OpenWeatherMapForecastProvider> logger, IRetryHttpRequestHandler retryHttpRequestSender)
+        public OpenWeatherMapForecastChecker(HttpClient httpClient, OpenWeatherMapApiConfig apiConfig, ILogger<OpenWeatherMapForecastChecker> logger, IRetryHttpRequestHandler retryHttpRequestSender)
         {
             _httpClient = httpClient;
             _apiConfig = apiConfig;
             _logger = logger;
             _retryHttpRequestSender = retryHttpRequestSender;
         }
-
-        public async Task<DailyTemperatureForecast[]> GetLocationForecastAsync(LocationConfig location)
+        
+        /// <inheritdoc cref="IForecastChecker"/>>
+        public async Task<DailyForecastCheckResult[]> CheckLocationForecastAsync(LocationConfig location)
         {
             string countryOrState = location.CountryOrState is null ? "" : $",{location.CountryOrState}";
             string place = $"{location.Name}{countryOrState}";

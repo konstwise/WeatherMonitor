@@ -13,9 +13,9 @@
     <ItemGroup>
       <ProjectReference Include="..\WeatherMonitor.Domain\WeatherMonitor.Domain.csproj" />
       <ProjectReference Include="..\WeatherMonitor.Core\WeatherMonitor.Core.csproj" />
-      <ProjectReference Include="..\WeatherMonitor.InMemoryForecastRepository\WeatherMonitor.InMemoryForecastRepository.csproj" />
+      <ProjectReference Include="..\WeatherMonitor.KeyValueStore\WeatherMonitor.KeyValueStore.csproj" />
       <ProjectReference Include="..\WeatherMonitor.OpenWeatherMapProvider\WeatherMonitor.OpenWeatherMapProvider.csproj" />
-      <ProjectReference Include="..\WeatherMonitor.Services\WeatherMonitor.Services.csproj" />
+      <ProjectReference Include="..\WeatherMonitor.Infrastructure\WeatherMonitor.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

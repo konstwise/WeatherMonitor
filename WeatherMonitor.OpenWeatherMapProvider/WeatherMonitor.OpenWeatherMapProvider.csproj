@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WeatherMonitor.Domain\WeatherMonitor.Domain.csproj" />
-      <ProjectReference Include="..\WeatherMonitor.Services\WeatherMonitor.Services.csproj" />
+      <ProjectReference Include="..\WeatherMonitor.Infrastructure\WeatherMonitor.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

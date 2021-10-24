@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace WeatherMonitor.Domain
 {
-    public interface IForecastUpdater
+    public interface IForecastCheckResultsUpdater
     {
         Task UpdateAllLocationsAsync(CancellationToken cancellationToken);
     }

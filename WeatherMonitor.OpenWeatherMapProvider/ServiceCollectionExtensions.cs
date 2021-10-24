@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WeatherMonitor.Domain;
-using WeatherMonitor.ForecastUpdater.Tests;
 
 namespace WeatherMonitor.OpenWeatherMapProvider
 {
@@ -11,14 +10,14 @@ namespace WeatherMonitor.OpenWeatherMapProvider
         public static IServiceCollection AddOpenWeatherMapProvider(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddSingleton<IForecastProvider, OpenWeatherMapForecastProvider>();
+            services.AddSingleton<IForecastChecker, OpenWeatherMapForecastChecker>();
             OpenWeatherMapApiConfig config = new();
             configuration.GetSection(
                     nameof(OpenWeatherMapApiConfig))
                 .Bind(config);
 
             services.AddSingleton(config);
-            services.AddHttpClient<IForecastProvider, OpenWeatherMapForecastProvider>(c =>
+            services.AddHttpClient<IForecastChecker, OpenWeatherMapForecastChecker>(c =>
             {
                 c.BaseAddress = new Uri(config.BaseUrl);
             });

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using WeatherMonitor.IoC;
+using WeatherMonitor.DI;
 
 namespace WeatherMonitor.Host
 {
@@ -25,7 +25,7 @@ namespace WeatherMonitor.Host
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "WeatherMonitor.Host", Version = "v1"});
             });
-            services.AddWeatherMonitor(Configuration);
+            services.AddWeatherMonitorCore(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

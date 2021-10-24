@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Host", "Weat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Domain", "WeatherMonitor.Domain\WeatherMonitor.Domain.csproj", "{8D698C6A-16F8-4F67-840D-7CD75A0CA9EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.IoC", "WeatherMonitor.IoC\WeatherMonitor.IoC.csproj", "{A4A54527-E576-4935-8EAF-AFB46B7F4861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.DI", "WeatherMonitor.DI\WeatherMonitor.DI.csproj", "{A4A54527-E576-4935-8EAF-AFB46B7F4861}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.OpenWeatherMapProvider", "WeatherMonitor.OpenWeatherMapProvider\WeatherMonitor.OpenWeatherMapProvider.csproj", "{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}"
 EndProject
@@ -14,13 +14,13 @@ ProjectSection(SolutionItems) = preProject
 	README.md = README.md
 EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.InMemoryForecastRepository", "WeatherMonitor.InMemoryForecastRepository\WeatherMonitor.InMemoryForecastRepository.csproj", "{687E18CD-CB5E-4BA2-B690-616D425DB04E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.KeyValueStore", "WeatherMonitor.KeyValueStore\WeatherMonitor.KeyValueStore.csproj", "{687E18CD-CB5E-4BA2-B690-616D425DB04E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Core", "WeatherMonitor.Core\WeatherMonitor.Core.csproj", "{1AD0F514-45E1-4F8E-B664-7D6BFB4DDFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Services", "WeatherMonitor.Services\WeatherMonitor.Services.csproj", "{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Infrastructure", "WeatherMonitor.Infrastructure\WeatherMonitor.Infrastructure.csproj", "{105B7A6F-F296-47E1-A0DF-1101D14CC1DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Domain.Tests", "WeatherMonitor.Domain.Tests\WeatherMonitor.Domain.Tests.csproj", "{3C7ADBC8-776B-448D-BEB9-84D6E5950035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.Core.Tests", "WeatherMonitor.Core.Tests\WeatherMonitor.Core.Tests.csproj", "{3C7ADBC8-776B-448D-BEB9-84D6E5950035}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
 using System;
-using WeatherMonitor.ForecastUpdater.Tests;
+using WeatherMonitor.Domain;
 
 namespace WeatherMonitor.OpenWeatherMapProvider
 {

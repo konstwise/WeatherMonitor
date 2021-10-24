@@ -7,27 +7,27 @@ using WeatherMonitor.Domain.Entities;
 
 namespace WeatherMonitor.Core
 {
-    public class ForecastUpdater : IForecastUpdater, IExecutor
+    public class ForecastCheckResultsUpdater : IForecastCheckResultsUpdater
     {
-        private readonly IForecastProvider _forecastProvider;
-        private readonly ILogger<ForecastUpdater> _logger;
-        private readonly IForecastRepository _forecastRepository;
+        private readonly IForecastChecker _forecastChecker;
+        private readonly ILogger<ForecastCheckResultsUpdater> _logger;
+        private readonly IForecastCheckResultsRepository _forecastCheckResultsRepository;
         private readonly LocationConfig[] _locations;
 
-        public ForecastUpdater(IForecastProvider forecastProvider, ILogger<ForecastUpdater> logger, 
+        public ForecastCheckResultsUpdater(IForecastChecker forecastChecker, ILogger<ForecastCheckResultsUpdater> logger, 
             MonitoringConfig config,
-            IForecastRepository forecastRepository)
+            IForecastCheckResultsRepository forecastCheckResultsRepository)
         {
-            _forecastProvider = forecastProvider;
-            _logger = logger;
+            _forecastChecker = forecastChecker ?? throw new ArgumentNullException(nameof(forecastChecker));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _locations = config?.Locations ?? throw new ArgumentNullException(nameof(config.Locations));
-            _forecastRepository = forecastRepository;
+            _forecastCheckResultsRepository = forecastCheckResultsRepository ?? throw new ArgumentNullException(nameof(forecastCheckResultsRepository));
         }
 
         public async Task UpdateAllLocationsAsync(CancellationToken token)
         {
             _logger.LogDebug(
-                "Retrieving weather forecast for all configured locations..");
+                "Retrieving forecast checks for all configured locations..");
 
             foreach (var locationConfig in _locations)
             {
@@ -38,15 +38,13 @@ namespace WeatherMonitor.Core
                     return;
                 }
                 
-                var forecast = await _forecastProvider.GetLocationForecastAsync(locationConfig);
+                var results = await _forecastChecker.CheckLocationForecastAsync(locationConfig);
                 var location = new Location
                 {
                     Name = locationConfig.Name,
-                    CountryOrState = locationConfig.CountryOrState,
-                    Latitude = locationConfig.Latitude,
-                    Longitude = locationConfig.Longitude,
+                    CountryOrState = locationConfig.CountryOrState
                 };
-                _forecastRepository.Update(location, forecast);
+                _forecastCheckResultsRepository.Update(location, results);
             }
 
             _logger.LogInformation(

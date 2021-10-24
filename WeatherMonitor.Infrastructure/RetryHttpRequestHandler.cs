@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
-using WeatherMonitor.ForecastUpdater.Tests;
+using WeatherMonitor.Domain;
 
-namespace WeatherMonitor.Services
+namespace WeatherMonitor.Infrastructure
 {
     public class RetryHttpRequestHandler : IRetryHttpRequestHandler
     {

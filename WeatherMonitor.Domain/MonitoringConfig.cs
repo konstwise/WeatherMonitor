@@ -12,8 +12,6 @@ namespace WeatherMonitor.Domain
     {
         public string Name { get; init; }
         public string CountryOrState { get; init; }
-        public decimal Latitude { get; init; }
-        public decimal Longitude { get; init; }
         public TemperatureLimits Limits { get; init; }
 
     }

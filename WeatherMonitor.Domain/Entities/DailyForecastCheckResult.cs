@@ -2,7 +2,7 @@ using System;
 
 namespace WeatherMonitor.Domain.Entities
 {
-    public class DailyTemperatureForecast
+    public class DailyForecastCheckResult
     {
         public DateTime Date { get; set; }
 
