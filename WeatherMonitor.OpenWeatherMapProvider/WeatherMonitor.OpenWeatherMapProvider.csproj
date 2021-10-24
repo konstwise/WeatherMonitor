@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WeatherMonitor.Domain\WeatherMonitor.Domain.csproj" />
+      <ProjectReference Include="..\WeatherMonitor.Services\WeatherMonitor.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
+using WeatherMonitor.ForecastUpdater.Tests;
 
 namespace WeatherMonitor.InMemoryForecastRepository
 {

@@ -4,21 +4,22 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
+using WeatherMonitor.ForecastUpdater.Tests;
 
-namespace WeatherMonitor.OpenWeatherMapProvider
+namespace WeatherMonitor.Services
 {
-    public class RetryHttpRequestSender : IRetryHttpRequestSender
+    public class RetryHttpRequestHandler : IRetryHttpRequestHandler
     {
-        private readonly OpenWeatherMapApiConfig _config;
-        private readonly ILogger<RetryHttpRequestSender> _logger;
+        private readonly ILogger<RetryHttpRequestHandler> _logger;
+        private readonly RetryPolicyConfig _configRetryPolicy;
 
-        public RetryHttpRequestSender(OpenWeatherMapApiConfig config, ILogger<RetryHttpRequestSender> logger)
+        public RetryHttpRequestHandler(RetryPolicyConfig config, ILogger<RetryHttpRequestHandler> logger)
         {
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _configRetryPolicy = config ?? throw new ArgumentNullException(nameof(config));
             _logger = logger;
         }
 
-        public Task<HttpResponseMessage> HandleRequestWithPolicyAsync(Func<Task<HttpResponseMessage>> sendAsync)
+        public Task<HttpResponseMessage> HandleWithPolicyAsync(Func<Task<HttpResponseMessage>> sender)
         {
             var fallbackRetryPolicy = Policy
                 .Handle<Exception>(x =>
@@ -26,9 +27,10 @@ namespace WeatherMonitor.OpenWeatherMapProvider
                     _logger.LogWarning($"Forever retrying after: {x.Message}");
                     return true;
                 })
-                .RetryForeverAsync(onRetry: (ex, retryAttempt, _) =>
+                .RetryForeverAsync(onRetryAsync: async (ex, retryAttempt, _) =>
                 {
-                    _logger.LogWarning($"Making retry {retryAttempt}");
+                    _logger.LogWarning($"Delaying for {10000}ms, then making retry {retryAttempt}");
+                    await Task.Delay(10000);
                 });
             
             var backoffRetry = HttpPolicyExtensions
@@ -49,15 +51,16 @@ namespace WeatherMonitor.OpenWeatherMapProvider
                     return match;
                 })
                 .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(_config.RetryPolicy.MaxRetryAttempts, 
+                .WaitAndRetryAsync(_configRetryPolicy.MaxRetryAttempts, 
                     retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     onRetry: (outcome, timespan, retryAttempt, context) =>
                     {
                         _logger.LogWarning($"Delaying for {timespan.TotalMilliseconds}ms, then making retry {retryAttempt}.");
                     });
+            
             return fallbackRetryPolicy
                 .WrapAsync(backoffRetry)
-                .ExecuteAsync(() => sendAsync());
+                .ExecuteAsync(() => sender());
         }
     }
 }

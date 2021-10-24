@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
+using WeatherMonitor.ForecastUpdater.Tests;
 using WeatherMonitor.OpenWeatherMapProvider.DTO;
+using WeatherMonitor.Services;
 
 namespace WeatherMonitor.OpenWeatherMapProvider
 {
@@ -13,9 +15,9 @@ namespace WeatherMonitor.OpenWeatherMapProvider
         private readonly HttpClient _httpClient;
         private readonly OpenWeatherMapApiConfig _apiConfig;
         private readonly ILogger<OpenWeatherMapForecastProvider> _logger;
-        private readonly IRetryHttpRequestSender _retryHttpRequestSender;
+        private readonly IRetryHttpRequestHandler _retryHttpRequestSender;
 
-        public OpenWeatherMapForecastProvider(HttpClient httpClient, OpenWeatherMapApiConfig apiConfig, ILogger<OpenWeatherMapForecastProvider> logger, IRetryHttpRequestSender retryHttpRequestSender)
+        public OpenWeatherMapForecastProvider(HttpClient httpClient, OpenWeatherMapApiConfig apiConfig, ILogger<OpenWeatherMapForecastProvider> logger, IRetryHttpRequestHandler retryHttpRequestSender)
         {
             _httpClient = httpClient;
             _apiConfig = apiConfig;
@@ -27,7 +29,7 @@ namespace WeatherMonitor.OpenWeatherMapProvider
         {
             string countryOrState = location.CountryOrState is null ? "" : $",{location.CountryOrState}";
             string place = $"{location.Name}{countryOrState}";
-            var res = await _retryHttpRequestSender.HandleRequestWithPolicyAsync(() =>
+            var res = await _retryHttpRequestSender.HandleWithPolicyAsync(() =>
                 _httpClient.GetAsync($"forecast?q={place}&appid={_apiConfig.AppId}&units=metric"));
 
             res.EnsureSuccessStatusCode();

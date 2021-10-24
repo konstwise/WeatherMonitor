@@ -1,4 +1,5 @@
 using System;
+using WeatherMonitor.ForecastUpdater.Tests;
 
 namespace WeatherMonitor.OpenWeatherMapProvider
 {
@@ -8,11 +9,4 @@ namespace WeatherMonitor.OpenWeatherMapProvider
         public string BaseUrl { get; set; }
         public RetryPolicyConfig RetryPolicy { get; set; }
     }
-    
-    
-    public class RetryPolicyConfig
-    {
-        public int MaxRetryAttempts { get; set; }
-    }
-
 }

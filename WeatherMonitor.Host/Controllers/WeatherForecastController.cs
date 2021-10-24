@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
+using WeatherMonitor.ForecastUpdater.Tests;
 
 namespace WeatherMonitor.Host.Controllers
 {

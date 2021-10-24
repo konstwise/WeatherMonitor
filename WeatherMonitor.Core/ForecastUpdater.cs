@@ -1,17 +1,18 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using WeatherMonitor.Domain;
 using WeatherMonitor.Domain.Entities;
 
-namespace WeatherMonitor.ForecastUpdater
+namespace WeatherMonitor.Core
 {
     public class ForecastUpdater : IForecastUpdater, IExecutor
     {
         private readonly IForecastProvider _forecastProvider;
         private readonly ILogger<ForecastUpdater> _logger;
-        private readonly MonitoringConfig _config;
         private readonly IForecastRepository _forecastRepository;
+        private readonly LocationConfig[] _locations;
 
         public ForecastUpdater(IForecastProvider forecastProvider, ILogger<ForecastUpdater> logger, 
             MonitoringConfig config,
@@ -19,7 +20,7 @@ namespace WeatherMonitor.ForecastUpdater
         {
             _forecastProvider = forecastProvider;
             _logger = logger;
-            _config = config;
+            _locations = config?.Locations ?? throw new ArgumentNullException(nameof(config.Locations));
             _forecastRepository = forecastRepository;
         }
 
@@ -28,7 +29,7 @@ namespace WeatherMonitor.ForecastUpdater
             _logger.LogDebug(
                 "Retrieving weather forecast for all configured locations..");
 
-            foreach (var locationConfig in _config.Locations)
+            foreach (var locationConfig in _locations)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -49,7 +50,7 @@ namespace WeatherMonitor.ForecastUpdater
             }
 
             _logger.LogInformation(
-                "Forecast updated for {LocationsCount} locations.", _config.Locations.Length);
+                "Forecast updated for {LocationsCount} locations.", _locations.Length);
         }
 
         public async Task ExecuteAsync(CancellationToken stoppingToken)

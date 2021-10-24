@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WeatherMonitor.Domain;
+using WeatherMonitor.ForecastUpdater.Tests;
 using WeatherMonitor.OpenWeatherMapProvider;
 using WeatherMonitor.Services;
 
@@ -12,7 +13,7 @@ namespace WeatherMonitor.IoC
             IConfiguration configuration)
         {
             services.AddSingleton<IForecastRepository, InMemoryForecastRepository.InMemoryForecastRepository>();
-            services.AddSingleton<IExecutor, ForecastUpdater.ForecastUpdater>();
+            services.AddSingleton<IExecutor, Core.ForecastUpdater>();
 
             MonitoringConfig config = new();
             configuration.GetSection(
@@ -20,15 +21,22 @@ namespace WeatherMonitor.IoC
                 .Bind(config);
 
             services.AddSingleton(config);
+            
             services.AddOpenWeatherMapProvider(configuration);
+            
+            var retryPolicyConfig = configuration.GetSection(
+                    nameof(RetryPolicyConfig))
+                .Get<RetryPolicyConfig>();
+
+            services.AddSingleton(retryPolicyConfig);
+            services.AddSingleton<IRetryHttpRequestHandler, RetryHttpRequestHandler>();
+            
             return services;
         }
 
         public static IServiceCollection AddRecurringTaskExecutor(this IServiceCollection services)
         {
-            services.AddHostedService<RecurringTaskExecutor>();
-
-            return services;
+            return services.AddHostedService<RecurringTaskExecutor>();
         }
     }
 }

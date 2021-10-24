@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WeatherMonitor.Domain\WeatherMonitor.Domain.csproj" />
-      <ProjectReference Include="..\WeatherMonitor.ForecastUpdater\WeatherMonitor.ForecastUpdater.csproj" />
+      <ProjectReference Include="..\WeatherMonitor.Core\WeatherMonitor.Core.csproj" />
       <ProjectReference Include="..\WeatherMonitor.InMemoryForecastRepository\WeatherMonitor.InMemoryForecastRepository.csproj" />
       <ProjectReference Include="..\WeatherMonitor.OpenWeatherMapProvider\WeatherMonitor.OpenWeatherMapProvider.csproj" />
       <ProjectReference Include="..\WeatherMonitor.Services\WeatherMonitor.Services.csproj" />
