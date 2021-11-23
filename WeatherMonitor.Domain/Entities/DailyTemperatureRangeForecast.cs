@@ -1,6 +1,6 @@
 using System;
 
-namespace WeatherMonitor.Domain
+namespace WeatherMonitor.Domain.Entities
 {
     public class DailyTemperatureRangeForecast
     {

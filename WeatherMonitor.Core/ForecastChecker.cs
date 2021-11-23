@@ -20,7 +20,7 @@ namespace WeatherMonitor.Core
         /// <inheritdoc cref="IForecastChecker"/>>
         public async Task<DailyForecastCheckResult[]> CheckLocationForecastAsync(LocationConfig location)
         {
-            var result = await _forecastProvider.GetNextFiveDaysDailyForecast(
+            var result = await _forecastProvider.GetNextFiveDaysForecast(
                 location.Name, location.CountryOrState);
             
             return ApplyLimits(result, minCelsium: location.Limits.LowerCelsium, maxCelsium: location.Limits.UpperCelsium);

@@ -1,47 +1,27 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using WeatherMonitor.Domain.Entities;
+using System.Text.Json.Serialization;
 
 namespace WeatherMonitor.OpenWeatherMapProvider.DTO
 {
     public class LocationForecastResponse
     {
-        public string cod { get; set; }
-        public int message { get; set; }
-        public int cnt { get; set; }
-        public List<TimePoint> list { get; set; }
-
-        public DailyForecastCheckResult[] MapToDailyForecast(decimal minCelsium, decimal maxCelsium)
-        {
-            return list.GroupBy(tp => DateTimeOffset.FromUnixTimeSeconds(tp.dt).Date)
-                .Select(dailyPoints =>
-                new DailyForecastCheckResult
-                {
-                    Date = dailyPoints.Key,
-                    IsUpperLimitExceeded = dailyPoints.Max(p => p.main.temp_max) > (double) maxCelsium,
-                    IsLowerLimitExceeded = dailyPoints.Min(p => p.main.temp_min) < (double) minCelsium,
-                }).ToArray();
-        }
+        [JsonPropertyName("list")]
+        public List<TimePoint> FiveDaysThreeHoursForecast { get; set; }
     }
     
     public class TimePoint
     {
-        public int dt { get; set; }
-        public Main main { get; set; }
-        public string dt_txt { get; set; }
+        [JsonPropertyName("dt")]
+        public int TimestampUnix { get; set; }
+        [JsonPropertyName("main")]
+        public DailyMinMax DailyMinMax { get; set; }
     }
     
-    public class Main
+    public class DailyMinMax
     {
-        public double temp { get; set; }
-        public double feels_like { get; set; }
-        public double temp_min { get; set; }
-        public double temp_max { get; set; }
-        public int pressure { get; set; }
-        public int sea_level { get; set; }
-        public int grnd_level { get; set; }
-        public int humidity { get; set; }
-        public double temp_kf { get; set; }
+        [JsonPropertyName("temp_min")]
+        public double MinimumTemperature { get; set; }
+        [JsonPropertyName("temp_max")]
+        public double MaximumTemperature { get; set; }
     }
 }
