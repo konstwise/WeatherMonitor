@@ -1,8 +1,8 @@
 ### Weather Monitor API
-The API serves the latest data containing weather forecast checks for the next 5 days for predefined locations.
-Each check data itself contains indications whether the configured temperture limits are going to be exceeded or not for the particular date.
+The API serves the latest data containing weather forecast checks for the next 5 days for the predefined locations.
+Each check data itself contains indications whether the configured temperature limits are going to be exceeded or not for the particular date.
 
-### API description
+### Usage
 The single endpoint can be requested as follows:
 
 #### 
@@ -71,11 +71,12 @@ For example:
 ]
 ````
 
-### How to build, test, and run
+### Build Instructions
 
-There are a few bash scripts (checked in Ubuntu but should be compatible with Mac OSX) for that purpose.
+There are a few bash scripts for that purpose (checked in Ubuntu but should be compatible with Mac OSX).
 
 _Please make them executable by running <chmod u+x [script].sh>_ 
+
 **[Build](build.sh)** docker image on Linux from WeatherMonitor directory:
 ####
     ./build.sh

@@ -7,21 +7,21 @@ using WeatherMonitor.Domain.Entities;
 
 namespace WeatherMonitor.Core
 {
-    public class ForecastCheckResultsUpdater : IForecastCheckResultsUpdater
+    public class ForecastUpdater : IForecastUpdater
     {
         private readonly IForecastChecker _forecastChecker;
-        private readonly ILogger<ForecastCheckResultsUpdater> _logger;
-        private readonly IForecastCheckResultsRepository _forecastCheckResultsRepository;
+        private readonly ILogger<ForecastUpdater> _logger;
+        private readonly IForecastRepository _forecastRepository;
         private readonly LocationConfig[] _locations;
 
-        public ForecastCheckResultsUpdater(IForecastChecker forecastChecker, ILogger<ForecastCheckResultsUpdater> logger, 
+        public ForecastUpdater(IForecastChecker forecastChecker, ILogger<ForecastUpdater> logger, 
             MonitoringConfig config,
-            IForecastCheckResultsRepository forecastCheckResultsRepository)
+            IForecastRepository forecastRepository)
         {
             _forecastChecker = forecastChecker ?? throw new ArgumentNullException(nameof(forecastChecker));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _locations = config?.Locations ?? throw new ArgumentNullException(nameof(config.Locations));
-            _forecastCheckResultsRepository = forecastCheckResultsRepository ?? throw new ArgumentNullException(nameof(forecastCheckResultsRepository));
+            _forecastRepository = forecastRepository ?? throw new ArgumentNullException(nameof(forecastRepository));
         }
 
         public async Task UpdateAllLocationsAsync(CancellationToken token)
@@ -44,7 +44,7 @@ namespace WeatherMonitor.Core
                     Name = locationConfig.Name,
                     CountryOrState = locationConfig.CountryOrState
                 };
-                _forecastCheckResultsRepository.Update(location, results);
+                _forecastRepository.UpdateLocationForecast(location, results);
             }
 
             _logger.LogInformation(

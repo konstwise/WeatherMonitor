@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.DI", "Weathe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMonitor.OpenWeatherMapProvider", "WeatherMonitor.OpenWeatherMapProvider\WeatherMonitor.OpenWeatherMapProvider.csproj", "{CC12EC7B-B46D-4A6B-8C6B-79E3243BEC8D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution files", "{717C646B-D250-4AEE-BFCF-BDD4A0708C44}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{717C646B-D250-4AEE-BFCF-BDD4A0708C44}"
 ProjectSection(SolutionItems) = preProject
 	Dockerfile = Dockerfile
 	README.md = README.md

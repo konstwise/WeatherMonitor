@@ -10,10 +10,10 @@ namespace WeatherMonitor.Host.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly IForecastCheckResultsRepository _forecastCheckResultsRepository;
+        private readonly IForecastRepository _forecastCheckResultsRepository;
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(IForecastCheckResultsRepository forecastCheckResultsRepository, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IForecastRepository forecastCheckResultsRepository, ILogger<WeatherForecastController> logger)
         {
             _forecastCheckResultsRepository = forecastCheckResultsRepository;
             _logger = logger;

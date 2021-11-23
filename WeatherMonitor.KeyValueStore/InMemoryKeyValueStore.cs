@@ -5,7 +5,7 @@ using WeatherMonitor.Domain;
 namespace WeatherMonitor.KeyValueStore
 {
     /// <summary>
-    /// Primitive but thread-safe in-memory key-value store implementation
+    /// Primitive yet thread-safe in-memory key-value store implementation
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>

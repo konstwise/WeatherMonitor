@@ -2,9 +2,9 @@ using WeatherMonitor.Domain.Entities;
 
 namespace WeatherMonitor.Domain
 {
-    public interface IForecastCheckResultsRepository
+    public interface IForecastRepository
     {
         LocationForecastCheckResults[] GetAllLocationCheckResults();
-        void Update(Location location, DailyForecastCheckResult[] forecast);
+        void UpdateLocationForecast(Location location, DailyForecastCheckResult[] forecast);
     }
 }

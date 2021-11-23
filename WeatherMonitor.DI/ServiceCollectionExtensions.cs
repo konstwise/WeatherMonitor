@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WeatherMonitor.Core;
 using WeatherMonitor.Domain;
@@ -13,10 +14,11 @@ namespace WeatherMonitor.DI
         public static IServiceCollection AddWeatherMonitorCore(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddSingleton<IForecastCheckResultsRepository, ForecastCheckResultsRepository>();
+            services.AddSingleton<IForecastRepository, ForecastRepository>();
             services.AddSingleton(typeof(IKeyValueStore<,>), typeof(InMemoryKeyValueStore<,>));
-            services.AddSingleton<IForecastCheckResultsUpdater, ForecastCheckResultsUpdater>();
-            services.AddSingleton<ILongRunningTaskSource, ForecastCheckMonitor>();
+            services.AddSingleton<IForecastChecker, ForecastChecker>();
+            services.AddSingleton<IForecastUpdater, ForecastUpdater>();
+            services.AddSingleton<ILongRunningTaskSource, ForecastMonitor>();
 
             MonitoringConfig config = new();
             configuration.GetSection(
@@ -41,5 +43,24 @@ namespace WeatherMonitor.DI
         {
             return services.AddHostedService<BackgroundWorker>();
         }
+        
+        public static IServiceCollection AddOpenWeatherMapProvider(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddSingleton<IForecastProvider, OpenWeatherMapForecastProvider>();
+            OpenWeatherMapApiConfig config = new();
+            configuration.GetSection(
+                    nameof(OpenWeatherMapApiConfig))
+                .Bind(config);
+
+            services.AddSingleton(config);
+            services.AddHttpClient<IForecastProvider, OpenWeatherMapForecastProvider>(c =>
+            {
+                c.BaseAddress = new Uri(config.BaseUrl);
+            });
+            
+            return services;
+        }
+
     }
 }

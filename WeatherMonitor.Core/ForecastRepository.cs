@@ -5,11 +5,11 @@ using WeatherMonitor.Domain.Entities;
 
 namespace WeatherMonitor.Core
 {
-    public class ForecastCheckResultsRepository : IForecastCheckResultsRepository
+    public class ForecastRepository : IForecastRepository
     {
         private readonly IKeyValueStore<Location, DailyForecastCheckResult[]> _keyValueStore;
 
-        public ForecastCheckResultsRepository(IKeyValueStore<Location, DailyForecastCheckResult[]> keyValueStore)
+        public ForecastRepository(IKeyValueStore<Location, DailyForecastCheckResult[]> keyValueStore)
         {
             _keyValueStore = keyValueStore ?? throw new ArgumentNullException(nameof(keyValueStore));
         }
@@ -23,7 +23,7 @@ namespace WeatherMonitor.Core
                 .ToArray();
         }
 
-        public void Update(Location location, DailyForecastCheckResult[] forecast)
+        public void UpdateLocationForecast(Location location, DailyForecastCheckResult[] forecast)
         {
             _keyValueStore.UpdateValue(location, forecast);
         }

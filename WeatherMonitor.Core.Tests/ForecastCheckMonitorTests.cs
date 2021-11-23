@@ -10,8 +10,8 @@ namespace WeatherMonitor.Core.Tests
 {
     public class ForecastCheckMonitorTests
     {
-        private readonly Mock<IForecastCheckResultsUpdater> _updaterMock = new();
-        private readonly Mock<ILogger<ForecastCheckMonitor>> _loggerMock = new();
+        private readonly Mock<IForecastUpdater> _updaterMock = new();
+        private readonly Mock<ILogger<ForecastMonitor>> _loggerMock = new();
         private MonitoringConfig _config = new()
         {
             Locations = Array.Empty<LocationConfig>()
@@ -23,21 +23,21 @@ namespace WeatherMonitor.Core.Tests
             [Fact]
             public void Throws_When_Null_Config_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new ForecastCheckMonitor(
+                Assert.Throws<ArgumentNullException>(() => new ForecastMonitor(
                     _updaterMock.Object, null, _loggerMock.Object));
             }
             
             [Fact]
             public void Throws_When_Null_Forecast_Updater_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new ForecastCheckMonitor(
+                Assert.Throws<ArgumentNullException>(() => new ForecastMonitor(
                     null, _config, _loggerMock.Object));
             }
         
             [Fact]
             public void Throws_When_Null_Logger_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new ForecastCheckMonitor(
+                Assert.Throws<ArgumentNullException>(() => new ForecastMonitor(
                     _updaterMock.Object, _config, null));
             }
         }
@@ -69,8 +69,8 @@ namespace WeatherMonitor.Core.Tests
 
                 try      
                 {
-                    var sut = new ForecastCheckMonitor(_updaterMock.Object, _config, _loggerMock.Object);
-                    await sut.UpdateForecastCheckResultsPeriodicallyAsync(stoppingToken);
+                    var sut = new ForecastMonitor(_updaterMock.Object, _config, _loggerMock.Object);
+                    await sut.UpdateForecastPeriodically(stoppingToken);
                 }
                 catch (TaskCanceledException) { /* OK to throw when delaying token expires */}
 

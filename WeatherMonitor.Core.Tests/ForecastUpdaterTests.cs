@@ -12,8 +12,8 @@ namespace WeatherMonitor.Core.Tests
     public class ForecastUpdaterTests
     {
         private readonly Mock<IForecastChecker> _providerMock = new();
-        private readonly Mock<ILogger<Core.ForecastCheckResultsUpdater>> _loggerMock = new();
-        private readonly Mock<IForecastCheckResultsRepository> _repositoryMock = new(); 
+        private readonly Mock<ILogger<Core.ForecastUpdater>> _loggerMock = new();
+        private readonly Mock<IForecastRepository> _repositoryMock = new(); 
         private MonitoringConfig _config = new()
         {
             Locations = Array.Empty<LocationConfig>()
@@ -25,28 +25,28 @@ namespace WeatherMonitor.Core.Tests
             [Fact]
             public void Throws_When_Null_Config_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new Core.ForecastCheckResultsUpdater(
+                Assert.Throws<ArgumentNullException>(() => new Core.ForecastUpdater(
                     _providerMock.Object, _loggerMock.Object, null, _repositoryMock.Object));
             }
             
             [Fact]
             public void Throws_When_Null_Forecast_Provider_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new Core.ForecastCheckResultsUpdater(
+                Assert.Throws<ArgumentNullException>(() => new Core.ForecastUpdater(
                     null, _loggerMock.Object, _config, _repositoryMock.Object));
             }
         
             [Fact]
             public void Throws_When_Null_Logger_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new Core.ForecastCheckResultsUpdater(
+                Assert.Throws<ArgumentNullException>(() => new Core.ForecastUpdater(
                     _providerMock.Object, null, _config, _repositoryMock.Object));
             }
         
             [Fact]
             public void Throws_When_Null_Repository_Specified()
             {
-                Assert.Throws<ArgumentNullException>(() => new Core.ForecastCheckResultsUpdater(
+                Assert.Throws<ArgumentNullException>(() => new Core.ForecastUpdater(
                     _providerMock.Object, _loggerMock.Object, _config, null));
             }
             
@@ -70,7 +70,7 @@ namespace WeatherMonitor.Core.Tests
             [Fact]
             public async Task Requests_Forecast_For_Each_Location_In_Config()
             {
-                var sut = new Core.ForecastCheckResultsUpdater(_providerMock.Object, _loggerMock.Object, _config, _repositoryMock.Object);
+                var sut = new Core.ForecastUpdater(_providerMock.Object, _loggerMock.Object, _config, _repositoryMock.Object);
                 await sut.UpdateAllLocationsAsync(CancellationToken.None);
 
                 _providerMock.Verify(m => m.CheckLocationForecastAsync(It.IsAny<LocationConfig>()),
@@ -80,10 +80,10 @@ namespace WeatherMonitor.Core.Tests
             [Fact]
             public async Task Updates_Forecast_For_Each_Location_In_Config()
             {
-                var sut = new Core.ForecastCheckResultsUpdater(_providerMock.Object, _loggerMock.Object, _config, _repositoryMock.Object);
+                var sut = new Core.ForecastUpdater(_providerMock.Object, _loggerMock.Object, _config, _repositoryMock.Object);
                 await sut.UpdateAllLocationsAsync(CancellationToken.None);
 
-                _repositoryMock.Verify(m => m.Update(It.IsAny<Location>(), It.IsAny<DailyForecastCheckResult[]>()),
+                _repositoryMock.Verify(m => m.UpdateLocationForecast(It.IsAny<Location>(), It.IsAny<DailyForecastCheckResult[]>()),
                     Times.Exactly(3));
             }
         }
