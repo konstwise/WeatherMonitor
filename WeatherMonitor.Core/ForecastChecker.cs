@@ -34,8 +34,8 @@ namespace WeatherMonitor.Core
                     new DailyForecastCheckResult
                     {
                         Date = rangeForecast.Date,
-                        IsUpperLimitExceeded = rangeForecast.MaxTemperatureCelsium > (double) maxCelsius,
-                        IsLowerLimitExceeded = rangeForecast.MinTemperatureCelsium < (double) minCelsius
+                        IsUpperLimitExceeded = rangeForecast.MaxTemperatureCelsius > (double) maxCelsius,
+                        IsLowerLimitExceeded = rangeForecast.MinTemperatureCelsius < (double) minCelsius
                     }).ToArray();
         }
     }

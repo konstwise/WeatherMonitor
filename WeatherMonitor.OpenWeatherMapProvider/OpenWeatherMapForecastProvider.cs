@@ -42,8 +42,8 @@ namespace WeatherMonitor.OpenWeatherMapProvider
                     new DailyTemperatureRangeForecast
                     {
                         Date = dailyPoints.Key,
-                        MaxTemperatureCelsium = dailyPoints.Max(p => p.DailyMinMax.MaximumTemperature),
-                        MinTemperatureCelsium = dailyPoints.Min(p => p.DailyMinMax.MinimumTemperature)
+                        MaxTemperatureCelsius = dailyPoints.Max(p => p.DailyMinMax.MaximumTemperature),
+                        MinTemperatureCelsius = dailyPoints.Min(p => p.DailyMinMax.MinimumTemperature)
                     }).ToArray();
         }
     }
