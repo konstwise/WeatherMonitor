@@ -50,11 +50,5 @@ namespace WeatherMonitor.Core
             _logger.LogInformation(
                 "Forecast updated for {LocationsCount} locations.", _locations.Length);
         }
-
-        public async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            await UpdateAllLocationsAsync(stoppingToken);
-        }
-        
     }
 }

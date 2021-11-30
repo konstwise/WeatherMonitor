@@ -23,19 +23,19 @@ namespace WeatherMonitor.Core
             var result = await _forecastProvider.GetNextFiveDaysForecast(
                 location.Name, location.CountryOrState);
             
-            return ApplyLimits(result, minCelsium: location.Limits.LowerCelsium, maxCelsium: location.Limits.UpperCelsium);
+            return ApplyLimits(result, location.Limits.LowerCelsius, location.Limits.UpperCelsius);
         }
         
         private static DailyForecastCheckResult[] ApplyLimits(
-            DailyTemperatureRangeForecast[] forecasts, decimal minCelsium, decimal maxCelsium)
+            DailyTemperatureRangeForecast[] forecasts, decimal minCelsius, decimal maxCelsius)
         {
             return forecasts
                 .Select(rangeForecast =>
                     new DailyForecastCheckResult
                     {
                         Date = rangeForecast.Date,
-                        IsUpperLimitExceeded = rangeForecast.MaxTemperatureCelsium > (double) maxCelsium,
-                        IsLowerLimitExceeded = rangeForecast.MinTemperatureCelsium < (double) minCelsium,
+                        IsUpperLimitExceeded = rangeForecast.MaxTemperatureCelsium > (double) maxCelsius,
+                        IsLowerLimitExceeded = rangeForecast.MinTemperatureCelsium < (double) minCelsius
                     }).ToArray();
         }
     }

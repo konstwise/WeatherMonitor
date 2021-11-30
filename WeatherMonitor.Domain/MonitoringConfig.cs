@@ -18,7 +18,7 @@ namespace WeatherMonitor.Domain
 
     public record TemperatureLimits
     {
-        public decimal LowerCelsium { get; set; }
-        public decimal UpperCelsium { get; set; }
+        public decimal LowerCelsius { get; set; }
+        public decimal UpperCelsius { get; set; }
     }
 }
